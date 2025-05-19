@@ -8,4 +8,5 @@ $ source venv/bin/activate
 (venv) $ pip install django=3.2
 (venv) $ pip install setuptools
 (venv) $ pip install legacy-cgi
+(venv) $ pip install python-dotenv
 ```
