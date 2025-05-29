@@ -3,10 +3,14 @@
 ## Set up the environment
 
 ```
+$ git clone https://github.com/TakamichiOsumi/django-practice.git
+$ cd django-practice
 $ python3 -m venv venv
 $ source venv/bin/activate
-(venv) $ pip install django==3.2
-(venv) $ pip install setuptools
-(venv) $ pip install legacy-cgi
-(venv) $ pip install python-dotenv
+(venv) $ pip install -r requirements.txt
+```
+
+## Create .env file.
+```
+$ emacs .env
 ```
