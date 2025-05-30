@@ -2,7 +2,7 @@
 
 This project is just for self-learning.
 
-## Set up the environment
+## Set up the environment.
 
 ```
 $ git clone https://github.com/TakamichiOsumi/django-practice.git
@@ -13,11 +13,21 @@ $ source venv/bin/activate
 ```
 
 ## Write .env file for the credential information.
+
 ```
 (venv) $ emacs .env
 ```
 
-## Run the server
+## Run the server and access to the http://localhost:8000/.
+
 ```
+(venv) $ python3 manage.py makemigrations
+(venv) $ python3 manage.py migrate
 (venv) $ python3 manage.py runserver
+```
+
+## Exit the environment.
+
+```
+(venv) $ deactivate
 ```
