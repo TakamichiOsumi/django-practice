@@ -1,5 +1,7 @@
 # django-practice
 
+This project is just for self-learning.
+
 ## Set up the environment
 
 ```
@@ -10,7 +12,12 @@ $ source venv/bin/activate
 (venv) $ pip install -r requirements.txt
 ```
 
-## Create .env file.
+## Write .env file for the credential information.
 ```
-$ emacs .env
+(venv) $ emacs .env
+```
+
+## Run the server
+```
+(venv) $ python3 manage.py runserver
 ```
