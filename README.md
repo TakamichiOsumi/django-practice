@@ -18,7 +18,7 @@ $ source venv/bin/activate
 (venv) $ emacs .env
 ```
 
-## Run the server and access to the http://localhost:8000/.
+## Run the server and access to the localhost.
 
 ```
 (venv) $ python3 manage.py makemigrations
