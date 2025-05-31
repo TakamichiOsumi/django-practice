@@ -1,0 +1,17 @@
+{% block title %}{{ customuser.username }}{% endblock %}
+{% block content %}
+<div>
+  {% if customuser.photo %}
+  <p><img src="{{ customuser.photo.url }}"></p>
+  {% else %}
+  <p>No photo.</p>
+  {% endif %}
+
+  {% if customuser.description %}
+  <p>{{ customuser.description }}</p>
+  {% else %}
+  <p>No description.</p>
+  {% endif %}
+
+</div>
+{% endblock %}
