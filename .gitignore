@@ -10,4 +10,7 @@ __pycache__/
 
 /static/*
 
+/accounts/migrations
+/timeline/migrations
+
 db.sqlite3
