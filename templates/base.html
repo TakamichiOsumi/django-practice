@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <div>
+      <ul>
+	{% if request.user.is_authenticated %}
+	<li><a href="#">Profile</a></li>
+	<li><a href="accounts:logout">Logout</a></li>
+	{% else %}
+	<li><a href="{% url 'accounts:login' %}">Login</a></li>
+	<li><a href="{% url 'accounts:signup' %}">Signup</a></li>
+	{% endif %}
+      </ul>
+    </div>
+    <main>
+      {% block contents %}{% endblock %}
+    </main>
+  </body>
+</html>
