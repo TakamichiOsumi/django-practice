@@ -1,6 +1,6 @@
-# django-practice
+# django-practice (Mini SNS project)
 
-This project is just for self-learning and will not be launched.
+This project is just for self-learning and will not be launched in any production site.
 
 ## Set up the environment.
 

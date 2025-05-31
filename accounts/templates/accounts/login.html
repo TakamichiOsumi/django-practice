@@ -1,0 +1,11 @@
+<h1>Login</h1>
+<form method="post">
+  {% csrf_token %}
+  {% for error in form.errors.values %}
+  {{ error }}
+  {% endfor %}
+  <label>User ID</label><input class="form-control" name="username">
+  <label>Password</label>
+  <input type="password" class="form-control" name="password">
+  <button type="submit">Login</button>
+</form>
