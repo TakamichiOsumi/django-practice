@@ -1,6 +1,6 @@
 # django-practice
 
-This project is just for self-learning.
+This project is just for self-learning and will not be launched.
 
 ## Set up the environment.
 
