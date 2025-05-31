@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Top{% endblock %}
+{% block contents %}
+
+{% if request.user.is_authenticated %}
+
+<a href="{% url 'timeline:create' %}">Create post</a>
+<div>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post</button>
+  </form>
+</div>
+
+{% endif %}
+{% endblock %}

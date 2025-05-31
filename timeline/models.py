@@ -1,6 +1,6 @@
 from django.db import models
 from imagekit.models import ImageSpecField, ProcessedImageField
-from imagekit.processors import ResizeToFill, ResizeToFit
+from imagekit.processors import ResizeToFit
 
 class Post(models.Model):
     title = models.CharField(null = True,
@@ -21,7 +21,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add = True,
                                       blank = True)
     def __str__(self):
-            return self.title
+        return self.title
 
     def get_like(self):
         likes = Like.objects.filter(post = self)
