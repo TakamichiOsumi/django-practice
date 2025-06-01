@@ -18,9 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from . import settings
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+admin_path = os.getenv('ADMIN_PATH')
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path(f'{admin_path}/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('', include('timeline.urls')),
 ]
