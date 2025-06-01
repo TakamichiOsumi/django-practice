@@ -6,12 +6,13 @@
   <body>
     <div>
       <ul>
-	{% if request.user.is_authenticated %}
-	<li><a href="{% url 'timeline:index' %}">Timeline</a></li>
-	<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
-	{% else %}
+	{% if request.user.is_authenticated == False %}
 	<li><a href="{% url 'accounts:login' %}">Login</a></li>
 	<li><a href="{% url 'accounts:signup' %}">Signup</a></li>
+	{% else %}
+	<li><a href="{% url 'accounts:edit' request.user.id %}">Edit Profile</a></li>
+	<li><a href="{% url 'timeline:index' %}">Timeline</a></li>
+	<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
 	{% endif %}
       </ul>
     </div>
