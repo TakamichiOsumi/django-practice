@@ -1,5 +1,5 @@
 django==3.2
 django-imagekit==4.0.2
-setuptools
-legacy-cgi
-python-dotenv
+setuptools==80.9.0
+legacy-cgi==2.6.3
+python-dotenv==1.1.0
