@@ -2,8 +2,12 @@
 
 {% block title %}{{ customuser.username }}{% endblock %}
 
-{% block content %}
+{% block contents %}
 <div>
+  <p class="fw-bold text-decoration-underline">
+    {{ customuser.username }}
+  </p>
+
   {% if customuser.photo %}
   <p><img src="{{ customuser.photo.url }}"></p>
   {% else %}
