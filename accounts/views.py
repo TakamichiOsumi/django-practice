@@ -28,8 +28,7 @@ class ProfileEditView(LoginRequiredMixin,
     success_message = 'Your profile has been updated'
 
     def get_success_url(self):
-        return reverse('accounts:detail',
-                       kwargs = { 'pk': self.object.pk })
+        return reverse_lazy('timeline:index')
 
 class ProfileDetailView(LoginRequiredMixin,
                         generic.DetailView):
