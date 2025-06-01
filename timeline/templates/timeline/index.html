@@ -25,9 +25,11 @@
   <a href="{% url 'accounts:detail' post.author.id %}">{{ post.author }}</a>
   <small class="text-muted">{{ post.created_at }}</small>
 
-  <br/>
-  {{ post.text }}
-  <br/>
+  <div class="card">
+    <div class="card-body">
+      {{ post.text }}
+    </div>
+  </div>
 
   {% if post.post_photo %}
   <img src="{{ post.post_photo.url }}">

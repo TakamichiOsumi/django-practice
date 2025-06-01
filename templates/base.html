@@ -2,22 +2,49 @@
 <html lang="en">
   <head>
     <title>{% block title %}{% endblock %}</title>
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
   </head>
-  <body>
-    <div>
-      <ul>
-	{% if request.user.is_authenticated == False %}
-	<li><a href="{% url 'accounts:login' %}">Login</a></li>
-	<li><a href="{% url 'accounts:signup' %}">Signup</a></li>
-	{% else %}
-	<li><a href="{% url 'accounts:edit' request.user.id %}">Edit Profile</a></li>
-	<li><a href="{% url 'timeline:index' %}">Timeline</a></li>
-	<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
-	{% endif %}
-      </ul>
+  <header>
+    <div class="container">
+      <div>
+	<nav class="nav bg-info">
+	  <ul class="navbar-nav list-group-horizontal">
+	    {% if request.user.is_authenticated == False %}
+	    <li class="nav-item px-3">
+	      <a href="{% url 'accounts:login' %}" class="nav-link link-light">
+		Login
+	      </a>
+	    </li>
+	    <li class="nav-item px-3">
+	      <a href="{% url 'accounts:signup' %}" class="nav-link link-light">
+		Signup
+	      </a>
+	    </li>
+	    {% else %}
+	    <li class="nav-item px-3">
+	      <a href="{% url 'accounts:edit' request.user.id %}" class="nav-link link-light">
+		Edit Profile
+	      </a>
+	    </li>
+	    <li class="nav-item px-3">
+	      <a href="{% url 'timeline:index' %}" class="nav-link link-light">
+		Timeline
+	      </a>
+	    </li>
+	    <li class="nav-item px-3">
+	      <a href="{% url 'accounts:logout' %}" class="nav-link link-light">
+		Logout
+	      </a>
+	    </li>
+	    {% endif %}
+	  </ul>
+      </div>
     </div>
-    <main>
-      {% block contents %}{% endblock %}
-    </main>
+  </header>
+  <body>
+    {% block contents %}
+    {% endblock %}
   </body>
 </html>
