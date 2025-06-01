@@ -133,8 +133,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
-
-MEDIA_ROOT = f"{BASE_DIR}/media/"
+MEDIA_ROOT = f'{BASE_DIR}/media/'
+STATIC_ROOT = f'{BASE_DIR}/static'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
