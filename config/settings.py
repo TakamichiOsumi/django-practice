@@ -123,9 +123,7 @@ LANGUAGE_CODE = 'en'
 TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -137,8 +135,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = f'{BASE_DIR}/media/'
 STATIC_ROOT = f'{BASE_DIR}/static'
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'timeline:index'
+LOGOUT_REDIRECT_URL = 'accounts:login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

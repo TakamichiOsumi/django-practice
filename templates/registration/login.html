@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-</head>
-<body>
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+{% block contents %}
+
+<form method="post">
+  {% csrf_token %}
+  {% for error in form.errors.values %}
+  {{ error }}
+  {% endfor %}
+  <label>User ID</label><input class="form-control" name="username">
+  <label>Password</label>
+  <input type="password" class="form-control" name="password">
+  <button type="submit">Login</button>
+</form>
+{% endblock %}
