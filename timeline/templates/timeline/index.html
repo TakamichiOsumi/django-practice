@@ -1,7 +1,47 @@
 {% extends 'base.html' %}
 
 {% block contents %}
+
 {% if request.user.is_authenticated %}
+
+<div>
+  {% if page_obj.has_other_pages %}
+
+  {% if page_obj.has_previous %}
+  <li><a href="?page={{ page_obj.previous_page_number }}">&lt;&lt;Previous</a></li>
+  {% else %}
+  <li class="text-muted">&lt;&lt;Previous</li>
+  {% endif %}
+
+  {% if page_obj.has_next %}
+  <li><a href="?page={{ page_obj.next_page_number }}">&lt;&lt;Next</a></li>
+  {% else %}
+  <li class="text-muted">&lt;&lt;Next</li>
+  {% endif %}
+
+  {% endif %}
+
+  {% for post in page_obj %}
+  <a href="{% url 'accounts:detail' post.author.id %}">{{ post.author }}</a>
+  <small class="text-muted">{{ post.created_at }}</small>
+  {{ post.text }}
+
+  {% if post.post_photo %}
+  <img src="{{ post.post_photo.url }}">
+  {% endif %}
+
+  {% if post.author == request.user %}
+  <form method="post" action="{% url 'timeline:delete' post.id %}">
+    {% csrf_token %}
+    <button type="submit" onclick='return confirm("Are you sure to delete this post ?");'>
+      Delete
+    </button>
+  </form>
+  {% endif %}
+
+  {% endfor %}
+</div>
+
 <a href="{% url 'timeline:create' %}">Post something</a>
 {% endif %}
 
