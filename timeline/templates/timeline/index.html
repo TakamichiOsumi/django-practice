@@ -3,21 +3,26 @@
 {% block contents %}
 
 <div>
+
+  <div>
   {% if page_obj.has_other_pages %}
 
   {% if page_obj.has_previous %}
-  <li><a href="?page={{ page_obj.previous_page_number }}">&lt;&lt;Previous</a></li>
+  <a href="?page={{ page_obj.previous_page_number }}">&lt; Previous</a>
   {% else %}
-  <li class="text-muted">&lt;&lt;Previous</li>
+  &lt; Previous
   {% endif %}
+
+  &nbsp;
 
   {% if page_obj.has_next %}
-  <li><a href="?page={{ page_obj.next_page_number }}">&lt;&lt;Next</a></li>
+  <a href="?page={{ page_obj.next_page_number }}">Next &gt;</a>
   {% else %}
-  <li class="text-muted">&lt;&lt;Next</li>
+  Next &gt;
   {% endif %}
 
   {% endif %}
+  </div>
 
   {% for post in page_obj %}
   <a href="{% url 'accounts:detail' post.author.id %}">{{ post.author }}</a>
@@ -45,6 +50,8 @@
   {% endfor %}
 </div>
 
-<a href="{% url 'timeline:create' %}">Post something</a>
+<div>
+  <a href="{% url 'timeline:create' %}">Post something new</a>
+</div>
 
 {% endblock %}
