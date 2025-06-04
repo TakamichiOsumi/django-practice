@@ -9,7 +9,7 @@
   <header>
     <div class="container-fluid px-0">
       <div>
-	<nav class="nav bg-info">
+	<nav class="nav bg-dark">
 	  <ul class="navbar-nav list-group-horizontal">
 	    {% if request.user.is_authenticated == False %}
 	    <li class="nav-item px-3">
@@ -40,6 +40,7 @@
 	    </li>
 	    {% endif %}
 	  </ul>
+	</nav>
       </div>
     </div>
   </header>
@@ -47,4 +48,18 @@
     {% block contents %}
     {% endblock %}
   </body>
+  <footer class="nav bg-dark">
+    <div class="column">
+        <h5></h5>
+        <ul class="nav flex-column">
+          <li class="nav-item px-3"><a href="#" class="nav-link px-3 link-light">Docs</a></li>
+          <li class="nav-item px-3"><a href="#" class="nav-link px-3 link-light">Pricing</a></li>
+          <li class="nav-item px-3"><a href="#" class="nav-link px-3 link-light">FAQs</a></li>
+          <li class="nav-item px-3"><a href="#" class="nav-link px-3 link-light">About</a></li>
+        </ul>
+    </div>
+  </footer>
+  <small>
+    &copy; 2025 someone. All rights reserved.
+  </small>
 </html>
