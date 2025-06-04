@@ -9,7 +9,7 @@ from .forms import PostForm
 from .models import Post
 from .consts import POST_PER_PAGE
 
-class IndexView(generic.TemplateView):
+class IndexView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'timeline/index.html'
     pginate_by = 10
     posts = Post.objects.order_by('-created_at')

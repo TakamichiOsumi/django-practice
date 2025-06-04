@@ -6,7 +6,12 @@ from accounts.models import CustomUser
 # Create your tests here.
 class TimelineTestCase(TestCase):
 
-    def test_index(self):
+    def test_timeline_index_without_login(self):
+        client = Client()
+        response = client.get('/')
+        self.assertEqual(response.status_code, 302)
+
+    def test_timeline_index_with_login(self):
         client = Client()
         self.test_user = get_user_model().objects._create_user(
             username = 'testuser_foo',

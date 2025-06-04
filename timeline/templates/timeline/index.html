@@ -2,8 +2,6 @@
 
 {% block contents %}
 
-{% if request.user.is_authenticated %}
-
 <div>
   {% if page_obj.has_other_pages %}
 
@@ -48,6 +46,5 @@
 </div>
 
 <a href="{% url 'timeline:create' %}">Post something</a>
-{% endif %}
 
 {% endblock %}
