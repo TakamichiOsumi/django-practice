@@ -1,6 +1,6 @@
 # django-practice (Mini SNS project)
 
-This project is just for self-learning and will not be launched in any production site.
+This project is just for self-learning and is not be launched to any production site.
 
 ## Set up the environment.
 
@@ -17,6 +17,8 @@ $ source venv/bin/activate
 ```
 (venv) $ emacs .env
 ```
+
+SECRET_KEY, DEBUG, ALLOWED_HOSTS and ADMIN_PATH are exported.
 
 ## Run the server and access to the localhost.
 
