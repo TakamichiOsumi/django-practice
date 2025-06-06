@@ -1,6 +1,11 @@
-# django-practice (Mini SNS project)
+# Mini SNS project
 
 This project is just for self-learning and is not be launched to any production site.
+
+## Implemented features.
+
+* User can post text and optionally image file.
+* One global timeline shared by all users.
 
 ## Set up the environment.
 
