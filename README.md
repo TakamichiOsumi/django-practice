@@ -23,9 +23,17 @@ $ source venv/bin/activate
 (venv) $ emacs .env
 ```
 
-SECRET_KEY, DEBUG, ALLOWED_HOSTS and ADMIN_PATH are exported.
+SECRET_KEY, DEBUG, ALLOWED_HOSTS, ADMIN_PATH, DB_NAME, DB_USER and DB_PASSWORD must be exported.
 
-## Run the server and access to the localhost.
+## Initialize the postgresql server.
+
+Below is a basic procedure for Mac user.
+```
+(venv) $ brew services start postgresql
+(venv) $ bash pg_setup.sh # Create database and user defined in .env.
+```
+
+## Run the application server and access to the localhost.
 
 ```
 (venv) $ python3 manage.py makemigrations
@@ -33,7 +41,12 @@ SECRET_KEY, DEBUG, ALLOWED_HOSTS and ADMIN_PATH are exported.
 (venv) $ python3 manage.py runserver
 ```
 
-## Exit the environment.
+## Terminate the servers and exit the environment.
+
+```
+Send Cntrl-C for django server.
+(venv) $ brew services stop postgresql # for Mac
+```
 
 ```
 (venv) $ deactivate
