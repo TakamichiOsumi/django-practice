@@ -30,7 +30,7 @@ SECRET_KEY, DEBUG, ALLOWED_HOSTS, ADMIN_PATH, DB_NAME, DB_USER and DB_PASSWORD m
 Below is a basic procedure for Mac user.
 ```
 (venv) $ brew services start postgresql
-(venv) $ bash pg_setup.sh # Create database and user defined in .env.
+(venv) $ bash pg_setup.sh # Create db and user defined in .env.
 ```
 
 ## Run the application server and access to the localhost.
@@ -46,8 +46,5 @@ Below is a basic procedure for Mac user.
 ```
 Send Cntrl-C for django server.
 (venv) $ brew services stop postgresql # for Mac
-```
-
-```
 (venv) $ deactivate
 ```
