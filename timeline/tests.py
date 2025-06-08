@@ -26,6 +26,11 @@ class TimelineTestCase(TestCase):
                      password = 'testpassword')
         response = client.get('/')
         self.assertEqual(response.status_code, 200)
+        # Test the deprecation of GET method of LogoutView.
+        # The current logout is implemented by POST method.
+        response = client.logout()
+        response = client.post('/accounts/logout/')
+        self.assertEqual(response.status_code, 302)
 
     def test_timeline_post(self):
         client = Client()
