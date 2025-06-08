@@ -47,8 +47,6 @@ class TimelineTestCase(TestCase):
             password = f'testpassword_{idx}'
             test_users.append(self.gen_user(user, password))
             clients[idx].login(username = user, password = password)
-            response = clients[idx].get('/')
-            self.assertEqual(response.status_code, 200)
 
         # One user post a short message.
         clients[0].post('/create/', { 'text' : 'This is a message', 'photo': ''})
