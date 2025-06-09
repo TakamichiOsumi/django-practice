@@ -40,19 +40,19 @@ class TimelineTestCase(TestCase):
         latest_post = Post.objects.latest('created_at')
         clients[0].post('/create/', { 'text' : 'This is the second message', 'photo': ''})
 
-        # The other user can see the posted message.
+        # The other user can see the posted messages.
         response = clients[1].get('/')
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.content.find(b'This is the first message') >= 0)
         self.assertTrue(response.content.find(b'This is the second message') >= 0)
 
-        # The user who posted it deletes the first message
+        # The user who posted it deletes the first message.
         response = clients[0].post(reverse('timeline:delete',
                                            kwargs = { 'pk' : latest_post.pk }),
                                    format = 'json')
 
-        # Now, the other user cannot find the first message
-        # but can see the second one which isn't deleted.
+        # Now, the other user cannot find the first message.
+        # On the other hand, she can get the second one which isn't deleted.
         response = clients[1].get('/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content.find(b'This is the first message'), -1)

@@ -1,6 +1,6 @@
 # Mini SNS project
 
-This project is just for self-learning and is not be launched to any production site.
+This project is just for self-learning and isn't launched to any production site.
 
 ## Implemented features.
 
