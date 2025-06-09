@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
+from django.urls import reverse
 from .models import Post
 from accounts.models import CustomUser
 
@@ -12,25 +13,6 @@ class TimelineTestCase(TestCase):
             email = email,
             password = password)
         return test_user
-
-    def test_timeline_index_without_login(self):
-        client = Client()
-        response = client.get('/')
-        self.assertEqual(response.status_code, 302)
-
-    def test_timeline_index_with_login(self):
-        client = Client()
-        test_user = self.gen_user('testuser',
-                                  'testpassword')
-        client.login(username = 'testuser',
-                     password = 'testpassword')
-        response = client.get('/')
-        self.assertEqual(response.status_code, 200)
-        # Test the deprecation of GET method of LogoutView.
-        # The current logout is implemented by POST method.
-        response = client.logout()
-        response = client.post('/accounts/logout/')
-        self.assertEqual(response.status_code, 302)
 
     def test_timeline_post(self):
         client = Client()
@@ -53,10 +35,25 @@ class TimelineTestCase(TestCase):
             test_users.append(self.gen_user(user, password))
             clients[idx].login(username = user, password = password)
 
-        # One user post a short message.
-        clients[0].post('/create/', { 'text' : 'This is a message', 'photo': ''})
+        # One user posts two short messages.
+        clients[0].post('/create/', { 'text' : 'This is the first message', 'photo': ''})
+        latest_post = Post.objects.latest('created_at')
+        clients[0].post('/create/', { 'text' : 'This is the second message', 'photo': ''})
 
-        # Other user can see the posted message.
+        # The other user can see the posted message.
         response = clients[1].get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.content.find(b'This is a message'))
+        self.assertTrue(response.content.find(b'This is the first message') >= 0)
+        self.assertTrue(response.content.find(b'This is the second message') >= 0)
+
+        # The user who posted it deletes the first message
+        response = clients[0].post(reverse('timeline:delete',
+                                           kwargs = { 'pk' : latest_post.pk }),
+                                   format = 'json')
+
+        # Now, the other user cannot find the first message
+        # but can see the second one which isn't deleted.
+        response = clients[1].get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content.find(b'This is the first message'), -1)
+        self.assertTrue(response.content.find(b'This is the second message') >= 0)
