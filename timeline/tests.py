@@ -48,8 +48,7 @@ class TimelineTestCase(TestCase):
 
         # The user who posted it deletes the first message.
         response = clients[0].post(reverse('timeline:delete',
-                                           kwargs = { 'pk' : latest_post.pk }),
-                                   format = 'json')
+                                           kwargs = { 'pk' : latest_post.pk }))
 
         # Now, the other user cannot find the first message.
         # On the other hand, she can get the second one which isn't deleted.
