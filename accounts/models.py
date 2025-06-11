@@ -16,11 +16,14 @@ class CustomUser(AbstractUser):
 
     # Must be the type same as the primary key used by
     # the CustomUser id.
-    following = ArrayField(models.BigIntegerField(),
-                           blank = True,
-                           default = list)
-    follower = ArrayField(models.BigIntegerField(),
-                          blank = True,
-                          default = list)
     class Meta:
         verbose_name_plural = 'CustomUser'
+
+class Connection(models.Model):
+    following = models.ForeignKey(CustomUser,
+                                  related_name = 'following', on_delete = models.CASCADE)
+    follower = models.ForeignKey(CustomUser,
+                                 related_name = 'follower', on_delete = models.CASCADE)
+
+    def __str__(self):
+        return f"'{self.follower.username}' follows '{self.following.username}'"
