@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 from django.urls import reverse
-from .models import Post
+from .models import Post, Like
 from accounts.models import CustomUser
 
 # Create your tests here.
@@ -56,3 +56,13 @@ class TimelineTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content.find(b'This is the first message'), -1)
         self.assertTrue(response.content.find(b'This is the second message') >= 0)
+
+        # Add a test for the Like feature.
+        left_post = Post.objects.latest('created_at')
+        like = Like.objects.filter(user = test_users[1])
+        self.assertEqual(like.count(), 0)
+        response = clients[1].post(reverse('timeline:like',
+                                           kwargs = { 'pk' : left_post.pk }))
+        like = Like.objects.filter(user = test_users[1])
+        self.assertEqual(like.count(), 1)
+        self.assertEqual(like.get().post.id, left_post.id)
