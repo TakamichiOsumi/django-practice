@@ -45,6 +45,13 @@
       Delete
     </button>
   </form>
+  {% else %}
+  <form method="post" action="{% url 'timeline:like' post.id %}">
+    {% csrf_token %}
+    <button type="submit" onclick='return confirm("Are you sure to like this post ?");'>
+      Great !
+    </button>
+  </form>
   {% endif %}
 
   {% endfor %}

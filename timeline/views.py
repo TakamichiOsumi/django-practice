@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from .forms import PostForm
-from .models import Post
+from .models import Post, Like
 from .consts import POST_PER_PAGE
 
 class IndexView(LoginRequiredMixin, generic.TemplateView):
@@ -53,6 +53,19 @@ class DeleteView(LoginRequiredMixin, generic.DeleteView):
             messages.success(self.request, 'Removed')
             return super().delete(request, *args, **kwargs)
 
+class LikeView(LoginRequiredMixin, generic.View):
+    model = Like
+    success_url = reverse_lazy('timeline:index')
+
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs["pk"]
+        post = Post.objects.get(id = post_id)
+        like = Like(user = self.request.user, post = post)
+        like.save()
+        print(f'{self.request.user} liked post No. {post_id}.')
+        return redirect('timeline:index')
+
 index = IndexView.as_view()
 create = CreateView.as_view()
 delete = DeleteView.as_view()
+like = LikeView.as_view()
