@@ -60,9 +60,14 @@ class LikeView(LoginRequiredMixin, generic.View):
     def post(self, request, *args, **kwargs):
         post_id = kwargs["pk"]
         post = Post.objects.get(id = post_id)
-        like = Like(user = self.request.user, post = post)
-        like.save()
-        print(f'{self.request.user} liked post No. {post_id}.')
+        if Like.objects.filter(user = self.request.user,
+                               post = post).exists():
+            print(f'{self.request.user} already liked the post {post_id}.')
+        else:
+            like = Like(user = self.request.user, post = post)
+            like.save()
+            print(f'{self.request.user} liked post No. {post_id}.')
+
         return redirect('timeline:index')
 
 index = IndexView.as_view()
