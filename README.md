@@ -4,8 +4,9 @@ This project is just for self-learning and isn't launched to any production site
 
 ## Implemented features.
 
-* User can post text and optionally image file.
+* User can post text message and optionally image file.
 * One global timeline shared by all users.
+* User can delete past message or like other user's post.
 
 ## Set up the environment.
 
