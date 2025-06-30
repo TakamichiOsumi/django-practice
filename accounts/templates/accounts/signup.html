@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}Create account{% endblock %}
 
 {% block contents %}
 <form method="post">
   {% csrf_token %}
-  <input type="text" name="username" placeholder="User ID">
-  <input type="password" name="password1" placeholder="Password">
-  <input type="password" name="password2" placeholder="Password(Confirm)">
-  {% for key, val in form.errors.items %}
-  <p>{{ val }}</p>
-  {% endfor %}
+  {{ form | crispy }}
   <button type="submit">Create account</button>
 </form>
 {% endblock %}
