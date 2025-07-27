@@ -171,3 +171,5 @@ AUTO_LOGOUT = {
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1
 AXES_RESET_ON_SUCCESS = True
+# If the custom lockout template is prepared, indicate it in the below line.
+# AXES_LOCKOUT_TEMPLATE = ''
