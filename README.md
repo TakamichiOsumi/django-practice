@@ -7,6 +7,7 @@ This project is just for self-learning and isn't launched to any production site
 * User can post text message and optionally image file.
 * One global timeline shared by all users.
 * User can delete past message or like other user's post.
+* Suspicious user attempts and failures to login trigger the lock of user account.
 
 ## Set up the environment.
 
