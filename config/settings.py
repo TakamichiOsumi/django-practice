@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -154,3 +155,8 @@ LOGOUT_REDIRECT_URL = 'accounts:login'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTO_LOGOUT = {
+    'IDLE_TIME': 900,
+    'MESSAGE': 'The session has expired. Please login again to continue.',
+}
