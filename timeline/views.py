@@ -18,13 +18,15 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
         return self.posts
 
     def get_context_data(self, **kwargs):
+        messages.success(self.request, 'Logged in')
+
         context = super().get_context_data(**kwargs)
         context['object_list'] = self.posts
-
         paginator = Paginator(self.posts, POST_PER_PAGE)
         page_number = self.request.GET.get('page', 1)
         page_obj = paginator.page(page_number)
         context['page_obj'] = page_obj
+
         return context
 
 class CreateView(LoginRequiredMixin, generic.CreateView):

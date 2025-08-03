@@ -2,6 +2,20 @@
 
 {% block contents %}
 
+{% if messages %}
+{% for message in messages %}
+{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+<p id='logged-in-message' class="alert alert-success float-center text-center"> {{ message }} </p>
+{% endif %}
+{% endfor %}
+{% endif %}
+<script>
+  var message_timeout = document.getElementById('logged-in-message');
+  setTimeout(function(){
+      message_timeout.style.display = "none";
+  }, 3000);
+</script>
+
 <div>
 
   <div>
