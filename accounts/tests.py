@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.test import TestCase, Client
+from django.test import TestCase, Client, override_settings
 from accounts.models import CustomUser
 
 # Create your tests here.
@@ -17,6 +17,7 @@ class AccountsTestCase(TestCase):
         response = client.get('/')
         self.assertEqual(response.status_code, 302)
 
+    @override_settings(AXES_ENABLED = False)
     def test_timeline_login_and_logout(self):
         client = Client()
         test_user = self.gen_user('testuser',

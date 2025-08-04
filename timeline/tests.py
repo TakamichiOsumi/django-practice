@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
-from django.test import TestCase, Client
+from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 from .models import Post, Like
 from accounts.models import CustomUser
+from django.http import HttpRequest
 
 # Create your tests here.
 class TimelineTestCase(TestCase):
@@ -14,6 +15,7 @@ class TimelineTestCase(TestCase):
             password = password)
         return test_user
 
+    @override_settings(AXES_ENABLED = False)
     def test_timeline_post(self):
         client = Client()
         test_user = self.gen_user('testuser',
@@ -24,6 +26,7 @@ class TimelineTestCase(TestCase):
         latest_post = Post.objects.latest('created_at')
         self.assertEqual(latest_post.text, 'Hello World')
 
+    @override_settings(AXES_ENABLED = False)
     def test_global_timeline(self):
         # Set up two login users.
         clients = []

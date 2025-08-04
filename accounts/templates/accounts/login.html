@@ -1,4 +1,11 @@
 <h1>Login</h1>
+
+{% for message in messages %}
+<div class="message {{ message.tags }}">
+  {{ message }}
+</div>
+{% endfor %}
+
 <form method="post">
   {% csrf_token %}
   {% for error in form.errors.values %}
