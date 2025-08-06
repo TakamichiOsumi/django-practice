@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model
 from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 from accounts.models import CustomUser
@@ -23,11 +23,11 @@ class AccountsTestCase(TestCase):
     def test_brute_force_attacks(self):
         client = Client()
         login_url = reverse('accounts:login')
-        auth_info = {'username': 'invalid_user',
-                     'password': 'invalid_password' }
+        auth_info = { 'username': 'invalid_user',
+                      'password': 'invalid_password' }
         # Login attemps before the account lockout
         for i in range(AXES_FAILURE_LIMIT - 1):
-            response = self.client.post(login_url, auth_info)
+            response = client.post(login_url, auth_info)
             self.assertEqual(response.content.find(b'Account Lockout'), -1)
         # Trigger the account lockout by one more login failure
         response = self.client.post(login_url, auth_info)
