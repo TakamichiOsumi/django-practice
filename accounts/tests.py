@@ -2,8 +2,9 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 from accounts.models import CustomUser
-
 from config.settings import AXES_FAILURE_LIMIT
+
+import time
 
 # Create your tests here.
 class AccountsTestCase(TestCase):
@@ -47,3 +48,22 @@ class AccountsTestCase(TestCase):
         response = client.logout()
         response = client.post('/accounts/logout/')
         self.assertEqual(response.status_code, 302)
+
+    @override_settings(AXES_ENABLED = False,
+                       AUTO_LOGOUT = { 'IDLE_TIME': 2 })
+    def test_auto_logout(self):
+        login_url = reverse('accounts:login')
+        client = Client()
+        test_user = self.gen_user('testuser2',
+                                  'testpassword2')
+        client.login(username = 'testuser2',
+                     password = 'testpassword2')
+        response = client.get('/')
+        self.assertEqual(response.status_code, 200)
+        # Check if the response includes the link of new post or not.
+        self.assertContains(response, b'Post something new')
+
+        # Cause the timeout
+        time.sleep(3)
+        response = client.get('/', follow = True)
+        self.assertTrue(response.content.find(b'Login') >= 0)
