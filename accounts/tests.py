@@ -61,7 +61,7 @@ class AccountsTestCase(TestCase):
         response = client.get('/')
         self.assertEqual(response.status_code, 200)
         # Check if the response includes the link of new post or not.
-        self.assertContains(response, b'Post something new')
+        self.assertTrue(response.content.find(b'Post something new') >= 0)
 
         # Cause the timeout
         time.sleep(3)
