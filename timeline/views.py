@@ -18,8 +18,8 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
         return self.posts
 
     def get_context_data(self, **kwargs):
-        previous_url = self.request.META.get('HTTP_REFERER')
-        if previous_url.endswith('/accounts/login/'):
+        prev_url = self.request.META.get('HTTP_REFERER')
+        if prev_url is not None and prev_url.endswith('/accounts/login/'):
             messages.success(self.request, 'Logged in')
 
         context = super().get_context_data(**kwargs)

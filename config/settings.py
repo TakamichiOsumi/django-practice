@@ -174,3 +174,21 @@ AXES_RESET_ON_SUCCESS = True
 
 # If the custom lockout template is prepared, indicate it in the below line.
 AXES_LOCKOUT_TEMPLATE = 'accounts/lockout.html'
+
+# For reference, notes about more security settings.
+
+'''
+# CSRF protection
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIES_SECURE = True
+
+# SSL redirect
+# SECURE_SSL_REDIRECT = True
+
+# Enable HSTS
+# SECURE_HSTS_SECONDS = 86400
+# SECURE_HSTS_PRELOAD = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# Look into a CSP (Content Security Policy)
+'''
