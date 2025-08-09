@@ -36,7 +36,10 @@
 	    <li class="nav-item px-3">
 	      <form method="post" action="{% url 'accounts:logout' %}" class="nav-link link-light">
 		{% csrf_token %}
-		<button type="submit">logout</button>
+		<!-- TODO : Make the Logout link similar to other links (height) -->
+		<button type="submit" class="btn btn-link nav-link link-light">
+		  Logout
+		</button>
 	      </form>
 	    </li>
 	    {% endif %}
