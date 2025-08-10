@@ -55,14 +55,15 @@
   {% if post.author == request.user %}
   <form method="post" action="{% url 'timeline:delete' post.id %}">
     {% csrf_token %}
-    <button type="submit" onclick='return confirm("Are you sure to delete this post ?");'>
+    <button type="submit" class="btn btn-light"
+	    onclick='return confirm("Are you sure to delete this post ?");'>
       Delete
     </button>
   </form>
   {% else %}
   <form method="post" action="{% url 'timeline:like' post.id %}">
     {% csrf_token %}
-    <button type="submit" onclick='return confirm("Are you sure to like this post ?");'>
+    <button type="submit" class="btn btn-light">
       Great !
     </button>
   </form>
