@@ -11,6 +11,7 @@
       <div>
 	<nav class="nav bg-dark">
 	  <ul class="navbar-nav list-group-horizontal">
+	    <!-- user isn't authorized -->
 	    {% if request.user.is_authenticated == False %}
 	    <li class="nav-item px-3">
 	      <a href="{% url 'accounts:login' %}" class="nav-link link-light">
@@ -23,6 +24,7 @@
 	      </a>
 	    </li>
 	    {% else %}
+	    <!-- user is authorized -->
 	    <li class="nav-item px-3">
 	      <a href="{% url 'accounts:edit' request.user.id %}" class="nav-link link-light">
 		Edit Profile
@@ -56,8 +58,7 @@
     <div class="column">
         <h5></h5>
         <ul class="nav flex-column">
-          <li class="nav-item px-3"><a href="#" class="nav-link px-3 link-light">Docs</a></li>
-          <li class="nav-item px-3"><a href="#" class="nav-link px-3 link-light">Pricing</a></li>
+          <li class="nav-item px-3"><a href="#" class="nav-link px-3 link-light">Subscribe</a></li>
           <li class="nav-item px-3"><a href="#" class="nav-link px-3 link-light">FAQs</a></li>
           <li class="nav-item px-3"><a href="#" class="nav-link px-3 link-light">About</a></li>
         </ul>
