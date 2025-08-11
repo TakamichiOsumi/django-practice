@@ -1,13 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
-from .models import CustomUser
+from .models import CustomUser, Connection
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView
-
 from django.contrib.messages.views import SuccessMessageMixin
-
 from .forms import SignupForm, ProfileForm
+
 
 class SignupView(CreateView):
     model = CustomUser
@@ -29,6 +28,16 @@ class ProfileEditView(LoginRequiredMixin,
 
     def get_success_url(self):
         return reverse_lazy('timeline:index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        connections = Connection.objects
+        following = connections.filter(following = self.request.user)
+        follower = connections.filter(following = self.request.user)
+        # Return dummy data at this moment.
+        context['following'] = "foo"
+        context['follower'] = "bar"
+        return context
 
 class ProfileDetailView(LoginRequiredMixin,
                         generic.DetailView):

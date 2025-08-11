@@ -6,7 +6,20 @@
   <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save</button>
+    <button type="submit" class="btn btn-light">Save</button>
   </form>
+
+  <br/>
+
+  <h3>Follow List</h3>
+  {% if follower %}
+  <p>{{ follower }}</p>
+  {% endif %}
+
+  <h3>Follower List</h3>
+  {% if follower %}
+  <p>{{ follower }}</p>
+  {% endif %}
+
 </div>
 {% endblock %}
