@@ -12,8 +12,8 @@ This project is just for self-learning and isn't launched to any production site
 ## Set up the environment.
 
 ```
-$ git clone https://github.com/TakamichiOsumi/django-practice.git
-$ cd django-practice
+$ git clone https://github.com/TakamichiOsumi/mini-SNS.git
+$ cd mini-SNS
 $ python3 -m venv venv
 $ source venv/bin/activate
 (venv) $ pip install -r requirements.txt
