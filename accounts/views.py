@@ -33,7 +33,7 @@ class ProfileEditView(LoginRequiredMixin,
         context = super().get_context_data(**kwargs)
         connections = Connection.objects
         following = connections.filter(following = self.request.user)
-        follower = connections.filter(following = self.request.user)
+        follower = connections.filter(follower = self.request.user)
         # Return dummy data at this moment.
         context['following'] = "foo"
         context['follower'] = "bar"

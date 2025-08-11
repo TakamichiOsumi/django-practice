@@ -20,5 +20,11 @@
   <p>No description.</p>
   {% endif %}
 
+  {% if customuser.id == user.id %}
+  <p>user profile of myself</p>
+  {% else %}
+  <p>user different from "{{ user.username }}" </p>
+  {% endif %}
+
 </div>
 {% endblock %}
