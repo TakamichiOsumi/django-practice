@@ -3,10 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from .models import CustomUser, Connection
 from django.urls import reverse_lazy, reverse
+from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from .forms import SignupForm, ProfileForm
-
 
 class SignupView(CreateView):
     model = CustomUser
@@ -48,5 +48,10 @@ class ProfileDetailView(LoginRequiredMixin,
     def get_success_url(self):
         return reverse('accounts:detail',
                        kwargs = { 'pk': self.object.pk })
+
+    def post(self, request, *args, **kwargs):
+        follower_id = kwargs['pk']
+        print(f'follower id : {self.request.user.id}, follower id : {follower_id}')
+        return redirect('timeline:index')
 
 detail = ProfileDetailView.as_view()

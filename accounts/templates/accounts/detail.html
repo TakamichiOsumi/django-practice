@@ -24,6 +24,12 @@
   <p>user profile of myself</p>
   {% else %}
   <p>user different from "{{ user.username }}" </p>
+  <form method="post" action="{% url 'accounts:detail' customuser.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-light">
+      Follow
+    </button>
+  </form>
   {% endif %}
 
 </div>
