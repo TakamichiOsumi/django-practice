@@ -33,10 +33,10 @@ class ProfileEditView(LoginRequiredMixin,
         context = super().get_context_data(**kwargs)
         connections = Connection.objects
         following = connections.filter(following = self.request.user)
-        follower = connections.filter(follower = self.request.user)
+        followed = connections.filter(followed = self.request.user)
         # Return dummy data at this moment.
         context['following'] = "foo"
-        context['follower'] = "bar"
+        context['followed'] = "bar"
         return context
 
 class ProfileDetailView(LoginRequiredMixin,
@@ -50,8 +50,15 @@ class ProfileDetailView(LoginRequiredMixin,
                        kwargs = { 'pk': self.object.pk })
 
     def post(self, request, *args, **kwargs):
-        follower_id = kwargs['pk']
-        print(f'follower id : {self.request.user.id}, follower id : {follower_id}')
+        followed_user_id = kwargs['pk']
+        users = CustomUser.objects
+        if users.filter(id = self.request.user.id).exists() and users.filter(id = followed_user_id).exists():
+            followed_user = users.get(id = followed_user_id)
+            print(f'user = "{self.request.user.username}" followed another user = "{followed_user.username}"')
+            new_conn = Connection(following = self.request.user,
+                                  followed = followed_user)
+            new_conn.save()
+
         return redirect('timeline:index')
 
 detail = ProfileDetailView.as_view()
