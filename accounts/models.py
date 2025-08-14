@@ -20,10 +20,11 @@ class CustomUser(AbstractUser):
         verbose_name_plural = 'CustomUser'
 
 class Connection(models.Model):
-    following = models.ForeignKey(CustomUser,
+    following = models.ForeignKey(CustomUser, null = True,
                                   related_name = 'following', on_delete = models.CASCADE)
-    followed = models.ForeignKey(CustomUser,
+    followed = models.ForeignKey(CustomUser, null = True,
                                  related_name = 'followed', on_delete = models.CASCADE)
+
 
     def __str__(self):
         return f"'{self.following.username}' follows '{self.followed.username}'"
