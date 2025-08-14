@@ -55,9 +55,13 @@ class ProfileDetailView(LoginRequiredMixin,
         if users.filter(id = self.request.user.id).exists() and users.filter(id = followed_user_id).exists():
             followed_user = users.get(id = followed_user_id)
             print(f'user = "{self.request.user.username}" followed another user = "{followed_user.username}"')
-            new_conn = Connection(following = self.request.user,
-                                  followed = followed_user)
-            new_conn.save()
+            if Connection.objects.filter(following = self.request.user,
+                                         followed = followed_user).exists() == False:
+                new_conn = Connection(following = self.request.user,
+                                      followed = followed_user)
+                new_conn.save()
+            else:
+                print('this combination of follow relationship already exists')
 
         return redirect('timeline:index')
 
