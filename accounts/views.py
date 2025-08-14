@@ -35,8 +35,8 @@ class ProfileEditView(LoginRequiredMixin,
         following = connections.filter(following = self.request.user)
         followed = connections.filter(followed = self.request.user)
         # Return dummy data at this moment.
-        context['following'] = "foo"
-        context['followed'] = "bar"
+        context['following_list'] = following
+        context['followed_list'] = followed
         return context
 
 class ProfileDetailView(LoginRequiredMixin,
@@ -56,12 +56,12 @@ class ProfileDetailView(LoginRequiredMixin,
             followed_user = users.get(id = followed_user_id)
             print(f'user = "{self.request.user.username}" followed another user = "{followed_user.username}"')
             if Connection.objects.filter(following = self.request.user,
-                                         followed = followed_user).exists() == False:
+                                         followed = followed_user).exists():
+                print('this combination of follow relationship already exists')
+            else:
                 new_conn = Connection(following = self.request.user,
                                       followed = followed_user)
                 new_conn.save()
-            else:
-                print('this combination of follow relationship already exists')
 
         return redirect('timeline:index')
 
