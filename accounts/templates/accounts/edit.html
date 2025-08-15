@@ -13,15 +13,17 @@
 
   <h3>Follow List</h3>
   {% if following_list %}
+  You are following...
   {% for following in following_list %}
-  <p>{{ following.id }}</p>
+  <p>{{ following.username }}</p>
   {% endfor %}
   {% endif %}
 
   <h3>Follower List</h3>
+  You are followed by...
   {% if followed_list %}
   {% for followed in followed_list %}
-  <p>{{ followed.id }}</p>
+  <p>{{ followed.username }}</p>
   {% endfor %}
   {% endif %}
 

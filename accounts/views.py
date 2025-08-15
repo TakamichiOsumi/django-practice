@@ -32,11 +32,16 @@ class ProfileEditView(LoginRequiredMixin,
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         connections = Connection.objects
-        following = connections.filter(following = self.request.user)
-        followed = connections.filter(followed = self.request.user)
-        # Return dummy data at this moment.
-        context['following_list'] = following
-        context['followed_list'] = followed
+        users = CustomUser.objects
+
+        # Get the ids of users whom I follow.
+        following_conns = connections.filter(following = self.request.user)
+        context['following_list'] = users.filter(id__in = [following_conns.values('followed_id')])
+
+        # Get the ids of users who follow me.
+        followed_conns = connections.filter(followed = self.request.user)
+        context['followed_list'] = users.filter(id__in = [followed_conns.values('following_id')])
+
         return context
 
 class ProfileDetailView(LoginRequiredMixin,
