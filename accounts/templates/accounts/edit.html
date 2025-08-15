@@ -13,18 +13,20 @@
 
   <h3>Follow List</h3>
   {% if following_list %}
-  You are following...
+  <ul>
   {% for following in following_list %}
-  <p>{{ following.username }}</p>
+  <li>{{ following.username }}</li>
   {% endfor %}
+  </ul>
   {% endif %}
 
   <h3>Follower List</h3>
-  You are followed by...
   {% if followed_list %}
+  <ul>
   {% for followed in followed_list %}
-  <p>{{ followed.username }}</p>
+  <li>{{ followed.username }}</li>
   {% endfor %}
+  </ul>
   {% endif %}
 
 </div>
