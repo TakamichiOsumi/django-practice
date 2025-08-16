@@ -71,7 +71,7 @@ class AccountsTestCase(TestCase):
         # Set up three login users.
         clients = []
         users = []
-        for i in range(3):
+        for i in range(4):
             clients.append(Client())
             user = f'testuser_{i}'
             password = f'testpassword_{i}'
@@ -79,7 +79,19 @@ class AccountsTestCase(TestCase):
             clients[i].login(username = user, password = password)
 
         # Build follow relationship
-        clients[0].post(reverse('accounts:detail', args=[ users[1].id]))
-        clients[0].post(reverse('accounts:detail', args=[ users[2].id]))
+        clients[0].post(reverse('accounts:detail', args=[ users[1].id ]))
+        clients[0].post(reverse('accounts:detail', args=[ users[2].id ]))
+        clients[1].post(reverse('accounts:detail', args=[ users[2].id ]))
+        clients[2].post(reverse('accounts:detail', args=[ users[0].id ]))
+        clients[3].post(reverse('accounts:detail', args=[ users[2].id ]))
 
-        self.assertTrue(Connection.objects.all().count() == 2)
+        conns = Connection.objects.all()
+        self.assertTrue(conns.count() == 5)
+        self.assertTrue(conns.filter(following_id = users[0].id).count() == 2)
+        self.assertTrue(conns.filter(followed_id  = users[0].id).count() == 1)
+        self.assertTrue(conns.filter(following_id = users[1].id).count() == 1)
+        self.assertTrue(conns.filter(followed_id  = users[1].id).count() == 1)
+        self.assertTrue(conns.filter(following_id = users[2].id).count() == 1)
+        self.assertTrue(conns.filter(followed_id  = users[2].id).count() == 3)
+        self.assertTrue(conns.filter(following_id = users[3].id).count() == 1)
+        self.assertTrue(conns.filter(followed_id  = users[3].id).count() == 0)
