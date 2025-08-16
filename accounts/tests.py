@@ -1,9 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client, override_settings
 from django.urls import reverse
-from accounts.models import CustomUser
+from accounts.models import CustomUser, Connection
 from config.settings import AXES_FAILURE_LIMIT
-
 import time
 
 # Create your tests here.
@@ -52,7 +51,6 @@ class AccountsTestCase(TestCase):
     @override_settings(AXES_ENABLED = False,
                        AUTO_LOGOUT = { 'IDLE_TIME': 2 })
     def test_auto_logout(self):
-        login_url = reverse('accounts:login')
         client = Client()
         test_user = self.gen_user('testuser2',
                                   'testpassword2')
@@ -67,3 +65,21 @@ class AccountsTestCase(TestCase):
         time.sleep(3)
         response = client.get('/', follow = True)
         self.assertTrue(response.content.find(b'Login') >= 0)
+
+    @override_settings(AXES_ENABLED = False)
+    def test_following_and_followed_status(self):
+        # Set up three login users.
+        clients = []
+        users = []
+        for i in range(3):
+            clients.append(Client())
+            user = f'testuser_{i}'
+            password = f'testpassword_{i}'
+            users.append(self.gen_user(user, password))
+            clients[i].login(username = user, password = password)
+
+        # Build follow relationship
+        clients[0].post(reverse('accounts:detail', args=[ users[1].id]))
+        clients[0].post(reverse('accounts:detail', args=[ users[2].id]))
+
+        self.assertTrue(Connection.objects.all().count() == 2)
