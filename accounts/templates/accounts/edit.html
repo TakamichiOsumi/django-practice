@@ -16,6 +16,12 @@
   <ul>
   {% for following in following_list %}
   <li>{{ following.username }}</li>
+  <form method="POST" action="{% url 'accounts:edit' following.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-light">
+      Unfollow
+    </button>
+  </form>
   {% endfor %}
   </ul>
   {% endif %}

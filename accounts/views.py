@@ -44,6 +44,13 @@ class ProfileEditView(LoginRequiredMixin,
 
         return context
 
+    def post(self, request, *args, **kwargs):
+        followed_user_id = kwargs['pk']
+        conn = Connection.objects.filter(following = self.request.user,
+                                         followed = followed_user_id)
+        conn.delete()
+        return redirect('accounts:edit', pk=(self.request.user.id))
+
 class ProfileDetailView(LoginRequiredMixin,
                         generic.DetailView):
     model = CustomUser
