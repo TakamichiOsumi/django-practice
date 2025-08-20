@@ -13,7 +13,7 @@
   var message_timeout = document.getElementById('logged-in-message');
   setTimeout(function(){
       message_timeout.style.display = "none";
-  }, 3000);
+  }, 2500);
 </script>
 
 <div>
@@ -39,8 +39,8 @@
   </div>
 
   {% for post in page_obj %}
-  <a href="{% url 'accounts:detail' post.author.id %}">{{ post.author }}</a>
   <small class="text-muted">{{ post.created_at }}</small>
+  <a href="{% url 'accounts:detail' post.author.id %}">{{ post.author }}</a>
 
   <div class="card">
     <div class="card-body">
@@ -64,7 +64,7 @@
   <form method="post" action="{% url 'timeline:like' post.id %}">
     {% csrf_token %}
     <button type="submit" class="btn btn-light">
-      Great !
+      Like
     </button>
   </form>
   {% endif %}
@@ -76,7 +76,7 @@
 
 <script>
   var spaces = document.getElementById("spaces");
-  spaces.innerHTML = "<br/>".repeat(5);
+  spaces.innerHTML = "<br/>".repeat(8);
 </script>
 
 <div>
