@@ -72,6 +72,13 @@
   {% endfor %}
 </div>
 
+<div id="spaces"></div>
+
+<script>
+  var spaces = document.getElementById("spaces");
+  spaces.innerHTML = "<br/>".repeat(5);
+</script>
+
 <div>
   <a href="{% url 'timeline:create' %}">Post something new</a>
 </div>
