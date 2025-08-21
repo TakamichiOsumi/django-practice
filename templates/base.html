@@ -11,7 +11,6 @@
       <div>
 	<nav class="nav bg-dark">
 	  <ul class="navbar-nav list-group-horizontal">
-	    <!-- user isn't authorized -->
 	    {% if request.user.is_authenticated == False %}
 	    <li class="nav-item px-3">
 	      <a href="{% url 'accounts:login' %}" class="nav-link link-light">
@@ -24,14 +23,23 @@
 	      </a>
 	    </li>
 	    {% else %}
-	    <!-- user is authorized -->
 	    <li class="nav-item px-3">
-	      <a href="{% url 'accounts:edit' request.user.id %}" class="nav-link link-light">
-		Edit Profile
+	      <a href="{% url 'accounts:edit' request.user.id %}"
+		 {% if '/' == request.path %}
+		 class="nav-link link-light">
+		 {% else %}
+		 class="nav-link link-light text-decoration-underline">
+		 {% endif %}
+		 Edit Profile
 	      </a>
 	    </li>
 	    <li class="nav-item px-3">
-	      <a href="{% url 'timeline:index' %}" class="nav-link link-light">
+	      <a href="{% url 'timeline:index' %}"
+		 {% if '/' == request.path %}
+		 class="nav-link link-light text-decoration-underline">
+		 {% else %}
+		 class="nav-link link-light">
+		 {% endif %}
 		Timeline
 	      </a>
 	    </li>
