@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
+from accounts.models import CustomUser, Connection
 from .forms import PostForm
 from .models import Post, Like
 from .consts import POST_PER_PAGE
@@ -12,10 +13,6 @@ from .consts import POST_PER_PAGE
 class IndexView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'timeline/index.html'
     pginate_by = 10
-    posts = Post.objects.order_by('-created_at')
-
-    def get_queryset(self):
-        return self.posts
 
     def get_context_data(self, **kwargs):
         prev_url = self.request.META.get('HTTP_REFERER')
@@ -23,9 +20,31 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
             messages.success(self.request, 'Logged in')
 
         context = super().get_context_data(**kwargs)
+        self.posts = Post.objects.order_by('-created_at')
         context['object_list'] = self.posts
         paginator = Paginator(self.posts, POST_PER_PAGE)
         page_number = self.request.GET.get('page', 1)
+        page_obj = paginator.page(page_number)
+        context['page_obj'] = page_obj
+
+        return context
+
+class FollowingTimeline(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'timeline/following_timeline.html'
+    pginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Filter all the posts by ids of users followed by the request user.
+        following_conns = Connection.objects.filter(following = self.request.user)
+        following_ids = following_conns.values('followed_id')
+        authors = CustomUser.objects.filter(id__in = following_ids)
+        posts = Post.objects.filter(author__in = authors)
+        context['object_list'] = posts
+
+        page_number = self.request.GET.get('page', 1)
+        paginator = Paginator(posts, POST_PER_PAGE)
         page_obj = paginator.page(page_number)
         context['page_obj'] = page_obj
 
@@ -75,6 +94,7 @@ class LikeView(LoginRequiredMixin, generic.View):
         return redirect('timeline:index')
 
 index = IndexView.as_view()
+following_timeline = FollowingTimeline.as_view()
 create = CreateView.as_view()
 delete = DeleteView.as_view()
 like = LikeView.as_view()

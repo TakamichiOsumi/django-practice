@@ -25,10 +25,10 @@
 	    {% else %}
 	    <li class="nav-item px-3">
 	      <a href="{% url 'accounts:edit' request.user.id %}"
-		 {% if '/' == request.path %}
-		 class="nav-link link-light">
-		 {% else %}
+		 {% if '/edit' in request.path %}
 		 class="nav-link link-light text-decoration-underline">
+		 {% else %}
+		 class="nav-link link-light">
 		 {% endif %}
 		 Edit Profile
 	      </a>
@@ -40,7 +40,17 @@
 		 {% else %}
 		 class="nav-link link-light">
 		 {% endif %}
-		Timeline
+		Timeline (all users)
+	      </a>
+	    </li>
+	    <li class="nav-item px-3">
+	      <a href="{% url 'timeline:following' %}"
+		 {% if '/following_timeline' in request.path %}
+		 class="nav-link link-light text-decoration-underline">
+		 {% else %}
+		 class="nav-link link-light">
+		 {% endif %}
+		 Timeline (following users)
 	      </a>
 	    </li>
 	    <li class="nav-item px-3">

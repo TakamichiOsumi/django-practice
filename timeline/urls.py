@@ -5,6 +5,7 @@ app_name = 'timeline'
 
 urlpatterns = [
     path('', views.index, name = 'index'),
+    path('following_timeline/', views.following_timeline, name = 'following'),
     path('create/', views.create, name = 'create'),
     path('delete/<int:pk>/', views.delete, name = 'delete'),
     path('like/<int:pk>/', views.like, name = 'like'),
