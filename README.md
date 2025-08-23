@@ -5,7 +5,7 @@ This project is just for self-learning and isn't launched to any production site
 ## Implemented features.
 
 * User can post text message and optionally image file.
-* One global timeline shared by all users.
+* One global timeline shared by all users and another one of following users only.
 * User can delete past message or like other user's post.
 * User can follow and unfollow others and check the follow/follower relationship.
 * Suspicious user attempts and failures to login trigger the lock of user account.
