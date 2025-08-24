@@ -22,17 +22,17 @@
   {% if page_obj.has_other_pages %}
 
   {% if page_obj.has_previous %}
-  <a href="?page={{ page_obj.previous_page_number }}">&lt; Previous</a>
+  <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
   {% else %}
-  &lt; Previous
+  &lt;
   {% endif %}
 
   &nbsp;
 
   {% if page_obj.has_next %}
-  <a href="?page={{ page_obj.next_page_number }}">Next &gt;</a>
+  <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
   {% else %}
-  Next &gt;
+  &gt;
   {% endif %}
 
   {% endif %}
